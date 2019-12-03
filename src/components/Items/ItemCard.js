@@ -11,6 +11,7 @@ import IconButton from "@material-ui/core/IconButton"
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import QuantityInput from "../QuantityInput/QuantityInput"
 import {TextField} from "@material-ui/core"
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles({
     card: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function ItemCard() {
+function ItemCard() {
     const classes = useStyles();
     const [quantity, setQuantity] = useState(1)
     const onQuantityChange = event => {
@@ -70,3 +71,5 @@ export default function ItemCard() {
         </Card>
     );
 }
+
+export default withRouter(ItemCard)

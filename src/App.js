@@ -1,22 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header'
-import Categories from "./components/Categories/Categories"
 import ChatButton from "./components/Chat/ChatButton"
 import ProductList from "./components/ProductList/ProductList"
-import Items from "./components/Items/Items"
+import {BrowserRouter as Router, Route} from "react-router-dom"
+import ProductDetails from "./components/ProductDetails/ProductDetails"
 
 function App() {
 
     return (
         <>
             <Header/>
-            {/*<Categories/>*/}
-            <ProductList>
-              <Items/>
-            </ProductList>
             <ChatButton/>
+            <Router>
+                <Route path="/" exact component={ProductList} />
+                <Route path="details/:id" component = {ProductDetails}/>
+
+            </Router>
+
         </>
 
     )
