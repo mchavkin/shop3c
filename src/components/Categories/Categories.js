@@ -10,13 +10,6 @@ import {withRouter} from "react-router-dom"
 const productCategories = data.products.reduce((res, product) =>
     res.includes(product.category) ? res : res.concat(product.category), ["All products"])
 
-function a11yProps(index) {
-    return {
-        id: `scrollable-auto-tab-${index}`,
-        'aria-controls': `scrollable-auto-tabpanel-${index}`,
-    };
-}
-
 const useStyles = makeStyles(theme => ({
     root: {
         flexGrow: 1,
