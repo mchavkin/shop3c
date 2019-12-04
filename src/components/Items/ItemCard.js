@@ -5,13 +5,13 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from "@material-ui/core/IconButton"
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import QuantityInput from "../QuantityInput/QuantityInput"
 import {TextField} from "@material-ui/core"
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom"
+import * as actionTypes from '../../store/actions'
+import {connect} from "react-redux"
 
 const useStyles = makeStyles({
     card: {
@@ -19,40 +19,50 @@ const useStyles = makeStyles({
         height: 400
     },
     desc: {
-        height: 120,
+        height: 100,
         overflow: 'hidden'
     },
-
+    price: {
+        height: 20,
+    },
     media: {
         height: 140,
         backgroundSize: 'contain'
     },
 });
 
-function ItemCard() {
+function ItemCard(props) {
     const classes = useStyles();
     const [quantity, setQuantity] = useState(1)
     const onQuantityChange = event => {
-        setQuantity(event.target.value)
+        const value = event.target.value
+        setQuantity(value > 0 ? value : 0)
     }
 
 
     return (
         <Card className={classes.card}>
-            <CardActionArea onClick={()=>{alert('clicked')}}>
+            <CardActionArea onClick={
+                () => {
+                    props.history.push("/details/" + props.item.id)
+                }
+            }
+            >
                 <CardMedia
                     className={classes.media}
-                    image="https://img.favpng.com/2/2/5/ipod-touch-apple-icon-image-format-icon-png-favpng-QvhiAM2p3i0AdfJAuQq2vKhsX.jpg"
-                    title="Apple"
+                    image={props.item.imageURL}
                 />
                 <CardContent>
                     <Typography variant="h5" component="h2">
-                        Lizard
+                        {props.item.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p" className={classes.desc}>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                        across all continents except Antarctica
+                        {props.item.description}
                     </Typography>
+                    <Typography variant="body2" color="textPrimary" component="p" className={classes.price}>
+                        {`Price: ${props.item.price.toFixed(2)}`}
+                    </Typography>
+
                 </CardContent>
             </CardActionArea>
             <CardActions>
@@ -64,7 +74,10 @@ function ItemCard() {
                            InputLabelProps={{
                                shrink: true,
                            }}/>
-                <IconButton size="medium" variant="contained" color="primary">
+                <IconButton size="medium"
+                            variant="contained"
+                            color="primary"
+                            onClick={() => props.addItems(props.item, quantity)}>
                     <AddShoppingCartIcon/>
                 </IconButton>
             </CardActions>
@@ -72,4 +85,8 @@ function ItemCard() {
     );
 }
 
-export default withRouter(ItemCard)
+const mapDispatchToProps = dispatch => ({
+    addItems: (item, quantity) => dispatch({type: actionTypes.ADD_ITEMS, item:item, quantity: quantity})
+})
+
+export default withRouter(connect(null, mapDispatchToProps)(ItemCard))

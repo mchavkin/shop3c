@@ -16,16 +16,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function FullWidthGrid() {
+export default function Items(props) {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
-                {new Array(15).fill(0).map((_, i) =>
-                    <Grid item xs={12} sm={4} md={2} key={i}>
-                        {/*<Paper className={classes.paper}>{`index ${i}`}</Paper>*/}
-                        <ItemCard/>
+                {props.items.map((item) =>
+                    <Grid item xs={12} sm={4} md={3} lg={2} key={item.id}>
+                        <ItemCard item = {item}/>
                     </Grid>
                 )}
             </Grid>

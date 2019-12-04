@@ -1,20 +1,24 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header/Header'
-import ChatButton from "./components/Chat/ChatButton"
+import SupportChat from "./components/Chat/SupportChat"
 import ProductList from "./components/ProductList/ProductList"
 import {BrowserRouter as Router, Route} from "react-router-dom"
 import ProductDetails from "./components/ProductDetails/ProductDetails"
+import Cart from "./components/Cart/Cart"
 
 function App() {
 
     return (
         <>
-            <Header/>
-            <ChatButton/>
             <Router>
-                <Route path="/" exact component={ProductList} />
-                <Route path="details/:id" component = {ProductDetails}/>
+                <Header/>
+                <SupportChat/>
+                <Route path="/" exact component={ProductList}/>
+                <Route path="/category/:cat" render={({match}) => (
+                    <ProductList cat={match.params.cat}/>)}/>
+                <Route path="/details/:id" component={ProductDetails}/>
+                <Route path="/cart" component={Cart}/>
 
             </Router>
 

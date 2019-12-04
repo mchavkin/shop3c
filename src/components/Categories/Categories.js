@@ -1,10 +1,14 @@
-import React from "react"
+import React, {useState} from "react"
 import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import MobileMenu from "./MobileMenu"
+import {data} from '../../data/data'
+import {withRouter} from "react-router-dom"
 
+const productCategories = data.products.reduce((res, product) =>
+    res.includes(product.category) ? res : res.concat(product.category), ["All products"])
 
 function a11yProps(index) {
     return {
@@ -27,17 +31,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function ScrollableTabsButtonAuto() {
+function Categories(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = useState(productCategories[0])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
-    };
+        props.history.push("All products" === newValue ? "/" : "/category/" + newValue)
+    }
 
     return (
         <>
-            <MobileMenu className={classes.sectionMobile}/>
+            <MobileMenu className={classes.sectionMobile}
+                        categories={productCategories}
+                        value={value}
+                        onChange={handleChange}/>
             <AppBar position="static" color="default">
                 <Tabs
                     value={value}
@@ -47,16 +55,16 @@ export default function ScrollableTabsButtonAuto() {
                     variant="scrollable"
                     className={classes.sectionDesktop}
                 >
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Item Three" {...a11yProps(2)} />
-                    <Tab label="Item Four" {...a11yProps(3)} />
-                    <Tab label="Item Five" {...a11yProps(4)} />
-                    <Tab label="Item Six" {...a11yProps(5)} />
-                    <Tab label="Item Seven" {...a11yProps(6)} />
+                    {
+                        productCategories.map(cat =>
+                            <Tab label={cat} key={cat} value={cat}/>
+                        )
+                    }
                 </Tabs>
             </AppBar>
 
         </>
     );
 }
+
+export default withRouter(Categories)
