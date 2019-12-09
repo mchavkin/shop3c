@@ -1,2 +1,2 @@
 # shop3c
-online web store front end try based on React/Material-ui
+Ongoing study project: online web store front end (React/Redux/Material-UI)
