@@ -36,7 +36,7 @@ function ItemCard(props) {
     const [quantity, setQuantity] = useState(1)
     const onQuantityChange = event => {
         const value = event.target.value
-        setQuantity(value > 0 ? value : 0)
+        setQuantity(value > 0 || null ? value : 0)
     }
 
 
@@ -77,7 +77,9 @@ function ItemCard(props) {
                 <IconButton size="medium"
                             variant="contained"
                             color="primary"
-                            onClick={() => props.addItems(props.item, quantity)}>
+                            onClick={() => {
+                                props.addItems(props.item, quantity)
+                            }}>
                     <AddShoppingCartIcon/>
                 </IconButton>
             </CardActions>
@@ -85,8 +87,9 @@ function ItemCard(props) {
     );
 }
 
+
 const mapDispatchToProps = dispatch => ({
-    addItems: (item, quantity) => dispatch({type: actionTypes.ADD_ITEMS, item:item, quantity: quantity})
+    addItems: (item, quantity) => dispatch({type: actionTypes.ADD_ITEMS, item: item, quantity: quantity})
 })
 
 export default withRouter(connect(null, mapDispatchToProps)(ItemCard))

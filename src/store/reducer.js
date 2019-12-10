@@ -2,22 +2,35 @@ import * as actionTypes from './actions'
 import {data} from "../data/data"
 
 const initialState = {
-    // items: {},
+    items: {},
     itemsInCart: 0,
     total: 0
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        // case actionTypes.ADD_ITEMS: {
-        //     const items = {...state.items, [action.id]: (state[action.id] || 0) + Number(action.quantity)}
-        //     const totals = calcTotal(items)
-        //     return {items, ...totals}
-        // }
         case actionTypes.ADD_ITEMS: {
+            const currentQuantity = state.items[action.item.id] ? state.items[action.item.id].qty : 0
             return {
+                items: {
+                    ...state.items,
+                    [action.item.id]: {
+                        qty: action.quantity + currentQuantity,
+                        item: action.item
+                    }
+                },
                 itemsInCart: state.itemsInCart + Number(action.quantity),
                 total: state.total + action.item.price * action.quantity
+            }
+        }
+        case actionTypes.REMOVE_ITEM: {
+            const initialQty = action.item.qty
+            let items = {...state.items}
+            delete items[action.item.item.id]
+            return {
+                itemsInCart: state.itemsInCart - initialQty,
+                total: state.total - initialQty*action.item.item.price,
+                items: items
             }
         }
         default:

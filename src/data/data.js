@@ -23,56 +23,41 @@ export const data = {
             name: 'HP Laptop',
             description: 'Yet another laptop computer ',
             price: 1000.00,
-            imageURL:'',
+            imageURL:'https://store.hp.com/SwitzerlandStore/Html/Merch/Images/c06306112_1750x1285.jpg',
             category: 'Computers'
         },
         {
             id: 4,
-            name: 'name',
-            description: 'description',
+            name: 'Rado',
+            description: 'Rado watch',
             price: 100.00,
-            imageURL:'',
+            imageURL:'https://images-na.ssl-images-amazon.com/images/I/81wVxh3G2oL._UL1500_.jpg',
             category: 'Watches'
         },
         {
             id: 5,
-            name: 'name',
+            name: 'Bounty',
             description: 'description',
             price: 100.00,
-            imageURL:'',
+            imageURL:'https://upload.wikimedia.org/wikipedia/en/1/19/Bounty-Wrapper-Small.jpg',
             category: 'Snacks'
         },
         {
             id: 6,
-            name: 'name',
-            description: 'description',
+            name: 'Peanuts',
+            description: 'They call they nuts, but those are really beans ',
             price: 100.00,
-            imageURL:'',
+            imageURL:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Peanutjar.jpg/1920px-Peanutjar.jpg',
             category: 'Snacks'
         },
         {
             id: 7,
-            name: 'name',
+            name: 'Crisps',
             description: 'description',
             price: 100.00,
-            imageURL:'',
+            imageURL:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/McCoy%27s_Crisps.jpg/1920px-McCoy%27s_Crisps.jpg',
             category: 'Snacks'
         },
-        {
-            id: 8,
-            name: 'name',
-            description: 'description',
-            price: 100.00,
-            imageURL:'',
-            category: 'Snacks'
-        },
-        {
-            id: 9,
-            name: 'name',
-            description: 'description',
-            price: 100.00,
-            imageURL:'',
-            category: 'Snacks'
-        },
+
     ]
 }
